@@ -1,0 +1,146 @@
+$maincolor : red;
+$maincolor2 : green;
+
+ 
+@use "sass:math";
+
+@function ranColor(){
+
+    $red : math.random()*255;
+    $green : math.random()*200;
+    $blue : math.random()*100;
+    @return rgb($red ,$green,$blue);
+}
+.container7{
+    width: 400px;
+height: 300px;
+}
+
+
+@each $colors in rgb(176, 176, 239), rgb(241, 120, 120), rgb(228, 228, 63) 
+{
+   @debug $colors ;
+}
+
+ 
+
+
+@mixin maxs ($bluer){
+    box-shadow: 0 0 0 $bluer black;
+}
+
+
+.container{
+    width: 300px;
+    height:300px ;
+    background-color: $maincolor;
+    @include maxs(4px);
+
+    &:hover{
+        background-color: $maincolor2;
+        
+    }
+h1{
+    background-color: $maincolor2;
+    &:hover{
+background-color: $maincolor;
+    }
+}
+
+}
+
+%daD{
+    background-color: aqua;
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px red;
+}
+
+
+.container2{
+    width: 300px;
+    height:300px ;
+    @extend %daD;
+}
+
+
+@function test($num){
+    
+    @if($num>30){
+        @return $maincolor;
+    }@else{
+        @return $maincolor2;
+    }
+
+}
+@for $i from 1 through 3 {
+    
+    .container4 ul:nth-child(3n + #{$i}) {
+      background-color: lighten(blue , $i * 25%);
+    }
+  }
+.container4{
+    width: 300px;
+    height: 300px;
+}
+.container5{
+    width: 300px;
+    height: 300px;
+}
+
+.container3{
+    width: 200px;
+    height: 200px;
+    @include maxs(3px);  
+    background-color: test(40);
+}
+
+@for $i from 1 through 3 {
+    
+    .container5 ul:nth-child(3n + #{$i}) {
+      background-color: darken(rgb(233, 216, 200) , $i * 25%);
+    }
+  }
+
+  @mixin anmate {
+    animation: example 0.5s infinite;
+    &:hover{
+        animation: example 3s infinite;
+    }
+  }
+  @keyframes example {
+    0%   {background-color:ranColor();transform: rotate(0deg);}
+    25%  {background-color:ranColor(); transform: rotate(90deg);}
+    50%  {background-color:ranColor(); transform: rotate(180deg);}
+    75%  {background-color:ranColor(); transform: rotate(270deg);}
+    100% {background-color:ranColor(); transform: rotate(360deg);}
+  }
+  .container1{
+    margin: 20%;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    border: 3px solid black;
+   text-align: center;
+    @include anmate;
+    
+  }
+ 
+
+
+
+@mixin colp($num){
+  
+    @if($num < 10){
+    background-color: blue;}
+   
+   @else{
+    background-color: rgb(32, 111, 208);
+   }
+}
+.container6{
+    width: 100%;
+    height: 200px;
+    p{
+        @include colp(2);
+    }
+}
